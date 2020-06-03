@@ -1,4 +1,5 @@
-#gaze_tracking 
+#gaze tracking https://github.com/antoinelame/GazeTracking
+
 
 import numpy as np
 import argparse
@@ -146,21 +147,17 @@ while(True):
     gaze.refresh(img)
     img = gaze.annotated_frame()
     text = ""
-    if gaze.is_blinking():
-        text = "Blinking"
-    elif gaze.is_right():
-        text = "Looking right"
-    elif gaze.is_left():
-        text = "Looking left"
+    if gaze.is_blinking() or gaze.is_right() or gaze.is_left():
+        text = "Pag attention!"
     elif gaze.is_center():
-        text = "Looking center"
+        text = "Looking @ Screen"
 
     cv2.putText(img, text, (90, 60), cv2.FONT_HERSHEY_DUPLEX, 1.6, (147, 58, 31), 2)
 
     left_pupil = gaze.pupil_left_coords()
     right_pupil = gaze.pupil_right_coords()
-    cv2.putText(img, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
-    cv2.putText(img, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+    #cv2.putText(img, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+    #cv2.putText(img, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
 
     cv2.imshow("Demo", img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
