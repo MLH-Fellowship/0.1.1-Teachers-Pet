@@ -148,7 +148,7 @@ while(True):
     img = gaze.annotated_frame()
     text = ""
     if gaze.is_blinking() or gaze.is_right() or gaze.is_left():
-        text = "Pag attention!"
+        text = "Pay attention!"
     elif gaze.is_center():
         text = "Looking @ Screen"
 
