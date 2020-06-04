@@ -7,3 +7,5 @@ Werkzeug==0.14.1
 boto3==1.13.19 
 numpy==1.18.1
 opencv-python==4.2.0.32
+redis
+rq
