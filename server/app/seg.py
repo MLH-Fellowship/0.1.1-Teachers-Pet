@@ -2,12 +2,18 @@ import cv2
 # import matplotlib.pyplot as plt
 import numpy as np
 from app.bucket import *
+from app.process import *
 import os
 from datetime import datetime
 import hashlib
+import time
 # %matplotlib inline
+from redis import Redis
+from rq import Queue
+q = Queue(connection=Redis())
 
-UPLOAD_FOLDER = '~/root/uploads'
+
+UPLOAD_FOLDER = './uploads'
 
 
 def segment_image(img_name):
@@ -83,6 +89,7 @@ def segment_image(img_name):
 
 def storage(image, dir_name, img_name):
     upload_path = f'{UPLOAD_FOLDER}/{dir_name}'
+    q.enqueue_call(process)
     if os.environ['USE_BUCKET'] == 'True':
         b_img = cv2.imencode('.png', image)[1].tostring()
         put_bucket(b_img, f'{dir_name}/{img_name}')
