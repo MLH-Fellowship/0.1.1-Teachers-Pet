@@ -2,9 +2,12 @@ import cv2
 # import matplotlib.pyplot as plt
 import numpy as np
 from app.bucket import *
+import os
 from datetime import datetime
-import imagehash
+import hashlib
 # %matplotlib inline
+
+UPLOAD_FOLDER = '~/root/uploads'
 
 
 def segment_image(img_name):
@@ -56,9 +59,8 @@ def segment_image(img_name):
     og_img = cv2.imread(img_name)
     oh, ow = og_img.shape[:2]
     i = 1
-    b_img = cv2.imencode('.png', og_img)[1].tostring()
-    t = datetime.now()
-    put_bucket(b_img, f'{t}/original.png')
+    t = hashed(img_name)
+    storage(og_img, t, 'original.png')
     for c in filtered_contours:
         # if avg_area - rng < cv2.contourArea(c) < avg_area + rng:
         x, y, iw, ih = cv2.boundingRect(c)
@@ -71,9 +73,33 @@ def segment_image(img_name):
         cropped_img = og_img[y:y+ih, x:x+iw]
         # plt.imshow(cropped_img)
         # plt.show()
-        b_img = cv2.imencode('.png', cropped_img)[1].tostring()
-        put_bucket(b_img, f'{t}/part-{i}.png')
+        # b_img = cv2.imencode('.png', cropped_img)[1].tostring()
+        storage(cropped_img, t, f'part-{i}.png')
         # cv2.imwrite(f'./uploads/output/{i}.png', cropped_img)
         print(i)
         i += 1
     return
+
+
+def storage(image, dir_name, img_name):
+    upload_path = f'{UPLOAD_FOLDER}/{dir_name}'
+    if os.environ['USE_BUCKET'] == 'True':
+        b_img = cv2.imencode('.png', image)[1].tostring()
+        put_bucket(b_img, f'{dir_name}/{img_name}')
+    else:
+        if not os.path.exists(upload_path):
+            os.makedirs(upload_path)
+        cv2.imwrite(f'{upload_path}/{img_name}', image)
+    return
+
+
+def hashed(img):
+    BUF_SIZE = 65536  # lets read stuff in 64kb chunks!
+    sha1 = hashlib.sha1()
+    with open(img, 'rb') as f:
+        while True:
+            data = f.read(BUF_SIZE)
+            if not data:
+                break
+            sha1.update(data)
+    return sha1.hexdigest()
