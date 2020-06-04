@@ -1,7 +1,7 @@
 import time
 
 
-def process():
+def process(dir_name):
     time.sleep(5)
     print('ada')
     return

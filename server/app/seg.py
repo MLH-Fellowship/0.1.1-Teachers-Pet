@@ -13,7 +13,7 @@ from rq import Queue
 q = Queue(connection=Redis())
 
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = '~/root/uploads'
 
 
 def segment_image(img_name):
@@ -84,12 +84,12 @@ def segment_image(img_name):
         # cv2.imwrite(f'./uploads/output/{i}.png', cropped_img)
         print(i)
         i += 1
+    q.enqueue_call(process, args=(t,))
     return
 
 
 def storage(image, dir_name, img_name):
     upload_path = f'{UPLOAD_FOLDER}/{dir_name}'
-    q.enqueue_call(process)
     if os.environ['USE_BUCKET'] == 'True':
         b_img = cv2.imencode('.png', image)[1].tostring()
         put_bucket(b_img, f'{dir_name}/{img_name}')
