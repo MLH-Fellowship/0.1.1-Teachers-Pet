@@ -47,7 +47,8 @@
   },
   "homepage": "https://github.com/PrabhanshuAttri/kayak-frontend-task#readme",
   "dependencies": {
-    "http-server": "^0.12.3"
+    "http-server": "^0.12.3",
+    "websocket": "^1.0.31"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

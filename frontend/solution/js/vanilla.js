@@ -8,6 +8,41 @@ const apiUrl = `${base}api/`;
 const refreshRate = 1000 * 5;
 let lastRefresh = new Date();
 
+// const WebSocketClient = require('websocket').client;
+// var client = new WebSocketClient();
+
+// client.on('connectFailed', function (error) {
+//   console.log('Connect Error: ' + error.toString());
+// });
+
+// client.on('connect', function (connection) {
+//   console.log('WebSocket Client Connected');
+//   connection.on('error', function (error) {
+//     console.log("Connection Error: " + error.toString());
+//   });
+//   connection.on('close', function () {
+//     console.log('echo-protocol Connection Closed');
+//   });
+//   connection.on('message', function (message) {
+//     if (message.type === 'utf8') {
+//       console.log("Received: '" + message.utf8Data + "'");
+//     }
+//   });
+
+//   function sendNumber() {
+//     if (connection.connected) {
+//       var number = Math.round(Math.random() * 0xFFFFFF);
+//       connection.sendUTF(number.toString());
+//       setTimeout(sendNumber, 1000);
+//     }
+//   }
+//   sendNumber();
+// });
+
+// client.connect('ws://localhost:5000/', 'ws');
+
+
+
 // check for IE browser
 const isIEBrowser = () => (!(!document.attachEvent || typeof (document.attachEvent) === 'undefined'));
 
@@ -43,7 +78,7 @@ const repaintPage = (data) => {
   contentEle.removeContent();
   Object.keys(data.users).map((key) => {
     const user = data.users[key]
-    const {image, emotion, distracted} = user;
+    const { image, emotion, distracted } = user;
 
     const img = document.createElement('img');
     img.style.width = '100px'
@@ -58,27 +93,27 @@ const repaintPage = (data) => {
   contentEle.show();
 }
 
-const refreshData = async () => {
-  fetchData().then((data) => {
-    console.log('refresh', data)
-    repaintPage(data);
-  }).catch((err) => {
-    console.error('error', err)
-  });
+// const refreshData = async () => {
+//   fetchData().then((data) => {
+//     console.log('refresh', data)
+//     repaintPage(data);
+//   }).catch((err) => {
+//     console.error('error', err)
+//   });
 
-}
+// }
 
-const reloadDataWorker = async () => {
-  while(true) {
-    const n = new Date();
-    const delta = n.getTime() - lastRefresh.getTime()
-    if(delta > refreshRate) {
-      console.log(n, lastRefresh, delta)
-      lastRefresh = new Date();
-      refreshData();
-    }
-  }
-}
+// const reloadDataWorker = async () => {
+//   // while(true) {
+//   //   const n = new Date();
+//   //   const delta = n.getTime() - lastRefresh.getTime()
+//   //   if(delta > refreshRate) {
+//   //     console.log(n, lastRefresh, delta)
+//   //     lastRefresh = new Date();
+//   //     refreshData();
+//   //   }
+//   // }
+// }
 
 const onPageLoad = () => {
   // loader animation div
@@ -98,6 +133,27 @@ const onPageLoad = () => {
     contentEle.addChild(ele);
     loaderEle.hide();
     contentEle.show();
+  });
+
+  const socket = io.connect('http://localhost:5000/ws');
+
+  socket.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+
+  socket.on('after connect', function (msg) {
+    console.log('After connect', msg);
+  });
+
+  socket.on('update value', function (msg) {
+    console.log('Slider value updated');
+  });
+
+  socket.emit('ws', {
+    data: 'Hello'
   });
 };
 

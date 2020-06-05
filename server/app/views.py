@@ -4,7 +4,7 @@ from app import app
 from app.seg import *
 import os
 import json
-
+from flask_socketio import SocketIO, emit
 
 @app.route('/')
 @cross_origin()
@@ -39,3 +39,24 @@ def upload():
     segment_image(f'./uploads/{media.filename}')
     os.remove(f'./uploads/{media.filename}')
     return 'ok'
+
+
+@socketio.on('ws', namespace='/ws')
+def test_message(message):
+    print(message)
+    emit('my response', {'data': message['data']})
+
+
+@socketio.on('my broadcast event', namespace='/ws')
+def test_message(message):
+    emit('my response', {'data': message['data']}, broadcast=True)
+
+
+@socketio.on('connect', namespace='/ws')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+
+@socketio.on('disconnect', namespace='/ws')
+def test_disconnect():
+    print('Client disconnected')
