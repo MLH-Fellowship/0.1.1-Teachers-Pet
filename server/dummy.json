@@ -1,0 +1,20 @@
+{
+    "key": "afd34DG342",
+    "users": {
+        "i09dgsdgDD": {
+            "image": "/images/abc/csgo.jpg",
+            "emotion": "neutral",
+            "distracted": "30%"
+        },
+        "0sdvnsdnv": {
+            "image": "/images/abc/csgo.jpg",
+            "emotion": "confused",
+            "distracted": "50%"
+        },
+        "GN23dfsd": {
+            "image": "/images/abc/csgo.jpg",
+            "emotion": "confused",
+            "distracted": "75%"
+        }
+    }
+}
