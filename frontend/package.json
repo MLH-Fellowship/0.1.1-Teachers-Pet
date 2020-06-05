@@ -1,0 +1,70 @@
+{
+  "name": "kayak",
+  "version": "1.0.0",
+  "description": "KAYAK internship UI task",
+  "main": "server.js",
+  "engines": {
+    "node": "12.14.0"
+  },
+  "scripts": {
+    "start": "http-server -c31536000 ./solution",
+    "serve": "./node_modules/gulp/bin/gulp.js watch & http-server -c31536000 ./solution",
+    "build": "./node_modules/gulp/bin/gulp.js",
+    "deploy": "git push heroku master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrabhanshuAttri/kayak-frontend-task.git"
+  },
+  "keywords": [
+    "Python",
+    "Javascript",
+    "HTML5",
+    "CSS3",
+    "Node.js",
+    "React.js",
+    "Java",
+    "PHP",
+    "MySQL",
+    "LESS",
+    "SCSS",
+    "Android",
+    "AWS",
+    "git",
+    "UNIX",
+    "Jira",
+    "Agile",
+    "Scrum",
+    "Confluence",
+    "UI",
+    "Software",
+    "Engineering"
+  ],
+  "author": "PrabhanshuAttri",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/PrabhanshuAttri/kayak-frontend-task/issues"
+  },
+  "homepage": "https://github.com/PrabhanshuAttri/kayak-frontend-task#readme",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-strip-comments": "^2.5.2",
+    "gulp-uglify": "^3.0.2",
+    "gulp-webp": "^4.0.1",
+    "webpack-stream": "^5.2.1"
+  }
+}
