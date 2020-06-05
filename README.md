@@ -1,5 +1,5 @@
 # Teacher's Pet
-![Logo](https://i.imgur.com/UVCeMaN.png)
+![Logo](https://i.imgur.com/UVCeMaN.png | width=100)
 
 Teacher's Pet is a web application that allows teachers to do track student engagement during Zoom calls.
 
