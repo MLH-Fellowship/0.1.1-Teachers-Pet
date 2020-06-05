@@ -1,4 +1,5 @@
-<img align="center" src="https://i.imgur.com/muX8tBl.png" alt="Logo" width="200" height="260">
+<p align="center"> <img src="https://i.imgur.com/muX8tBl.png" align="center" alt="Logo" width="200" height="260"></p>
+
 # Teacher's Pet
 
 Teacher's Pet is an open-source web application that allows teachers to do track student engagement during Zoom calls.
