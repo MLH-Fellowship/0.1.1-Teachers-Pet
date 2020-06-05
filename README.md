@@ -16,13 +16,6 @@ We used a variety of open-source technology:
 * Gulp
 * Babel
 
-
-## Prerequisites
-
-Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of tensorlow, cv2, dlib
-
 ## Installing Teacher's Pet
 
 To install Teacher's Pet, follow these steps:
