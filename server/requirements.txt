@@ -5,7 +5,7 @@ Jinja2==2.10
 MarkupSafe==1.1.0
 Werkzeug==0.14.1
 boto3==1.13.19 
-numpy==1.18.1
+numpy==1.22.0
 opencv-python==4.2.0.32
 redis
 rq
